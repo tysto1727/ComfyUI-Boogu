@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+*.log
+
+.DS_Store
+
+# Model weights and ComfyUI runtime outputs should not be committed here.
+models/
+input/
+output/
+temp/

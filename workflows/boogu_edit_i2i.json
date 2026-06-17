@@ -1,0 +1,85 @@
+{
+  "last_node_id": 4,
+  "last_link_id": 3,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "BOOGULoadEditPipeline",
+      "pos": [40, 80],
+      "size": [380, 220],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [{"name": "pipeline", "type": "BOOGU_PIPELINE", "links": [1], "shape": 3}],
+      "properties": {"Node name for S&R": "BOOGULoadEditPipeline"},
+      "widgets_values": ["bf16", "cuda", false, false]
+    },
+    {
+      "id": 4,
+      "type": "LoadImage",
+      "pos": [40, 340],
+      "size": [340, 320],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "links": [3], "shape": 3},
+        {"name": "MASK", "type": "MASK", "links": null, "shape": 3}
+      ],
+      "properties": {"Node name for S&R": "LoadImage"},
+      "widgets_values": ["example.png", "image"]
+    },
+    {
+      "id": 2,
+      "type": "BOOGUGenerate",
+      "pos": [480, 80],
+      "size": [560, 760],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {"name": "pipeline", "type": "BOOGU_PIPELINE", "link": 1},
+        {"name": "input_image", "type": "IMAGE", "link": 3},
+        {"name": "instruction_override", "type": "STRING", "link": null}
+      ],
+      "outputs": [{"name": "image", "type": "IMAGE", "links": [2], "shape": 3}],
+      "properties": {"Node name for S&R": "BOOGUGenerate"},
+      "widgets_values": [
+        "把图片中的裙子改成蓝色，并保持人物和背景自然一致。",
+        1024, 1024,
+        50,
+        4.0, 1.0, 0.0,
+        0, "fixed", 1,
+        "",
+        "",
+        1048576, 2048, 147456, 768, 1024,
+        true, false,
+        0.1, 0.0, 1.0, 3,
+        false, 0.001
+      ]
+    },
+    {
+      "id": 3,
+      "type": "PreviewImage",
+      "pos": [1080, 80],
+      "size": [400, 400],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [{"name": "images", "type": "IMAGE", "link": 2}],
+      "outputs": [],
+      "properties": {"Node name for S&R": "PreviewImage"}
+    }
+  ],
+  "links": [
+    [1, 1, 0, 2, 0, "BOOGU_PIPELINE"],
+    [2, 2, 0, 3, 0, "IMAGE"],
+    [3, 4, 0, 2, 1, "IMAGE"]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}
